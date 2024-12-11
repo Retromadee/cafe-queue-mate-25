@@ -1,16 +1,23 @@
 import { useState } from 'react';
-import { menuItems, categories } from '../data/menuItems';
+import { useQuery } from '@tanstack/react-query';
 import { useCart } from '../store/useCart';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ShoppingCart, ChefHat } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { fetchMenuItems } from '../services/api';
+import { categories } from '../data/menuItems';
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(categories[0]);
   const { items, addItem, total } = useCart();
   const { toast } = useToast();
+
+  const { data: menuItems = [], isLoading, error } = useQuery({
+    queryKey: ['menuItems'],
+    queryFn: fetchMenuItems,
+  });
 
   const filteredItems = menuItems.filter(item => item.category === selectedCategory);
 
@@ -21,6 +28,14 @@ const Index = () => {
       description: `${item.name} has been added to your cart.`,
     });
   };
+
+  if (isLoading) {
+    return <div className="flex justify-center items-center min-h-screen">Loading menu items...</div>;
+  }
+
+  if (error) {
+    return <div className="flex justify-center items-center min-h-screen">Error loading menu items</div>;
+  }
 
   return (
     <div className="min-h-screen bg-background">
