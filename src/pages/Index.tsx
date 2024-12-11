@@ -1,12 +1,80 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import { menuItems, categories } from '../data/menuItems';
+import { useCart } from '../store/useCart';
+import { useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { ShoppingCart, ChefHat } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>(categories[0]);
+  const { items, addItem, total } = useCart();
+  const { toast } = useToast();
+
+  const filteredItems = menuItems.filter(item => item.category === selectedCategory);
+
+  const handleAddToCart = (item: typeof menuItems[0]) => {
+    addItem(item);
+    toast({
+      title: "Added to cart",
+      description: `${item.name} has been added to your cart.`,
+    });
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <header className="bg-primary p-4 text-primary-foreground">
+        <div className="container flex justify-between items-center">
+          <h1 className="text-2xl font-bold">School Cafe</h1>
+          <div className="flex gap-4">
+            <Link to="/kitchen" className="flex items-center gap-2">
+              <ChefHat className="h-5 w-5" />
+              Kitchen
+            </Link>
+            <Link to="/cart" className="flex items-center gap-2">
+              <ShoppingCart className="h-5 w-5" />
+              <span>Cart ({items.length})</span>
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      <main className="container py-8">
+        <div className="flex gap-4 mb-8 overflow-x-auto">
+          {categories.map((category) => (
+            <Button
+              key={category}
+              variant={selectedCategory === category ? "default" : "outline"}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category}
+            </Button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredItems.map((item) => (
+            <Card key={item.id} className="overflow-hidden">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold">{item.name}</h3>
+                <p className="text-sm text-gray-600 mt-1">{item.description}</p>
+                <div className="flex justify-between items-center mt-4">
+                  <span className="text-lg font-bold">${item.price.toFixed(2)}</span>
+                  <Button onClick={() => handleAddToCart(item)}>
+                    Add to Cart
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </main>
     </div>
   );
 };
