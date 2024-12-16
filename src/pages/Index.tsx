@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useCart } from '../store/useCart';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ShoppingCart, ChefHat } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { fetchMenuItems } from '../services/api';
 import { categories } from '../data/menuItems';
+import { MenuItem } from '../types/menu';
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(categories[0]);
-  const { items, addItem, total } = useCart();
+  const { items, addItem } = useCart();
   const { toast } = useToast();
 
   const { data: menuItems = [], isLoading, error } = useQuery({
@@ -21,7 +22,7 @@ const Index = () => {
 
   const filteredItems = menuItems.filter(item => item.category === selectedCategory);
 
-  const handleAddToCart = (item: typeof menuItems[0]) => {
+  const handleAddToCart = (item: MenuItem) => {
     addItem(item);
     toast({
       title: "Added to cart",
@@ -57,7 +58,7 @@ const Index = () => {
 
       <main className="container py-8">
         <div className="flex gap-4 mb-8 overflow-x-auto">
-          {categories.map((category) => (
+          {categories.map((category: string) => (
             <Button
               key={category}
               variant={selectedCategory === category ? "default" : "outline"}
@@ -69,7 +70,7 @@ const Index = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredItems.map((item) => (
+          {filteredItems.map((item: MenuItem) => (
             <Card key={item.id} className="overflow-hidden">
               <img
                 src={item.image}
