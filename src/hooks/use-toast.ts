@@ -8,6 +8,7 @@ type ToasterToast = {
   title?: React.ReactNode;
   description?: React.ReactNode;
   action?: React.ReactNode;
+  open?: boolean; // Added this property to fix the type error
 };
 
 const actionTypes = {
