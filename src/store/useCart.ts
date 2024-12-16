@@ -15,13 +15,6 @@ type State = {
   total: number;
 };
 
-type Actions = {
-  addItem: (item: MenuItem) => void;
-  removeItem: (itemId: number) => void;
-  updateQuantity: (itemId: number, quantity: number) => void;
-  clearCart: () => void;
-};
-
 export const useCart = create<CartStore>((set) => ({
   items: [],
   total: 0,
