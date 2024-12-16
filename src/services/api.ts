@@ -1,13 +1,9 @@
-import axios from 'axios';
 import { MenuItem } from '../types/menu';
+import { menuItems } from '../data/menuItems';
 
-const API_BASE_URL = 'http://localhost:8080/api';
-
-const api = axios.create({
-  baseURL: API_BASE_URL,
-});
-
+// Simulating an API call with the local data
 export const fetchMenuItems = async (): Promise<MenuItem[]> => {
-  const response = await api.get<MenuItem[]>('/menu');
-  return response.data;
+  // Simulate network delay
+  await new Promise(resolve => setTimeout(resolve, 500));
+  return menuItems;
 };
