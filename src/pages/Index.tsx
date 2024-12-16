@@ -20,7 +20,7 @@ const Index = () => {
     queryFn: fetchMenuItems,
   });
 
-  const filteredItems = menuItems.filter(item => item.category === selectedCategory);
+  const filteredItems = menuItems.filter((item: MenuItem) => item.category === selectedCategory);
 
   const handleAddToCart = (item: MenuItem) => {
     addItem(item);

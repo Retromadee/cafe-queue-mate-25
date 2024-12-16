@@ -10,15 +10,27 @@ interface CartStore {
   total: number;
 }
 
-export const useCart = create<CartStore>((set, get) => ({
+type State = {
+  items: CartItem[];
+  total: number;
+};
+
+type Actions = {
+  addItem: (item: MenuItem) => void;
+  removeItem: (itemId: number) => void;
+  updateQuantity: (itemId: number, quantity: number) => void;
+  clearCart: () => void;
+};
+
+export const useCart = create<CartStore>((set) => ({
   items: [],
   total: 0,
   addItem: (item: MenuItem) => {
-    set((state) => {
-      const existingItem = state.items.find((i) => i.id === item.id);
+    set((state: State) => {
+      const existingItem = state.items.find((i: CartItem) => i.id === item.id);
       if (existingItem) {
         return {
-          items: state.items.map((i) =>
+          items: state.items.map((i: CartItem) =>
             i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
           ),
           total: state.total + item.price,
@@ -31,23 +43,23 @@ export const useCart = create<CartStore>((set, get) => ({
     });
   },
   removeItem: (itemId: number) => {
-    set((state) => {
-      const item = state.items.find((i) => i.id === itemId);
+    set((state: State) => {
+      const item = state.items.find((i: CartItem) => i.id === itemId);
       if (!item) return state;
       return {
-        items: state.items.filter((i) => i.id !== itemId),
+        items: state.items.filter((i: CartItem) => i.id !== itemId),
         total: state.total - (item.price * item.quantity),
       };
     });
   },
   updateQuantity: (itemId: number, quantity: number) => {
-    set((state) => {
-      const item = state.items.find((i) => i.id === itemId);
+    set((state: State) => {
+      const item = state.items.find((i: CartItem) => i.id === itemId);
       if (!item) return state;
       const oldTotal = item.price * item.quantity;
       const newTotal = item.price * quantity;
       return {
-        items: state.items.map((i) =>
+        items: state.items.map((i: CartItem) =>
           i.id === itemId ? { ...i, quantity } : i
         ),
         total: state.total - oldTotal + newTotal,
