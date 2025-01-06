@@ -4,7 +4,7 @@ import { useCart } from '../store/useCart';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { ShoppingCart, ChefHat } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { fetchMenuItems } from '../services/api';
 import { categories } from '../data/menuItems';
@@ -43,16 +43,10 @@ const Index = () => {
       <header className="bg-primary p-4 text-primary-foreground">
         <div className="container flex justify-between items-center">
           <h1 className="text-2xl font-bold">School Cafe</h1>
-          <div className="flex gap-4">
-            <Link to="/kitchen" className="flex items-center gap-2">
-              <ChefHat className="h-5 w-5" />
-              Kitchen
-            </Link>
-            <Link to="/cart" className="flex items-center gap-2">
-              <ShoppingCart className="h-5 w-5" />
-              <span>Cart ({items.length})</span>
-            </Link>
-          </div>
+          <Link to="/cart" className="flex items-center gap-2">
+            <ShoppingCart className="h-5 w-5" />
+            <span>Cart ({items.length})</span>
+          </Link>
         </div>
       </header>
 
