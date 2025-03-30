@@ -1,37 +1,21 @@
 import { MenuItem } from "../types/menu";
+import { mainCourseItems } from "./mainCourseItems";
+import { dessertItems } from "./dessertItems";
+import { saladItems } from "./saladItems";
+import { drinkItems } from "./drinkItems";
 
 export const menuItems: MenuItem[] = [
+  ...mainCourseItems,
+  ...dessertItems,
+  ...saladItems,
+  ...drinkItems,
   {
-    id: 1,
-    name: "Classic Burger",
-    description: "Juicy beef patty with fresh lettuce and tomatoes",
-    price: 5.99,
-    category: "Main Course",
-    image: "/placeholder.svg"
-  },
-  {
-    id: 2,
-    name: "Caesar Salad",
-    description: "Crispy romaine lettuce with parmesan and croutons",
-    price: 4.99,
-    category: "Salads",
-    image: "/placeholder.svg"
-  },
-  {
-    id: 3,
+    id: 6,
     name: "French Fries",
     description: "Crispy golden fries with sea salt",
-    price: 2.99,
-    category: "Sides",
-    image: "/placeholder.svg"
-  },
-  {
-    id: 4,
-    name: "Chocolate Brownie",
-    description: "Rich chocolate brownie with walnuts",
-    price: 3.99,
-    category: "Desserts",
-    image: "/placeholder.svg"
+    price: 89.99,
+    category: "MAIN",
+    image: "/fries1.jpg"
   }
 ];
 

@@ -13,11 +13,21 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    private String status = "pending";
     private Integer queueNumber;
-    private String status;
-    private Double totalAmount;
+    
+    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime timestamp;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @Column(precision = 10, scale = 2)
+    private Double totalAmount;
+    
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "order_id")
     private List<OrderItem> items;
+
+    @PrePersist
+    protected void onCreate() {
+        timestamp = LocalDateTime.now();
+    }
 }

@@ -1,14 +1,14 @@
-import { Toaster } from "./components/ui/toaster";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Kitchen from "./pages/Kitchen";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import KitchenDashboard from './pages/KitchenDashboard';
 
-const queryClient = new QueryClient();
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<KitchenDashboard />} />
+      </Routes>
+    </Router>
+  );
+}
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <Toaster />
-    <Kitchen />
-  </QueryClientProvider>
-);
-
-export default App;
+export default App; 

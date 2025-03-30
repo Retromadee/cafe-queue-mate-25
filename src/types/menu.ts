@@ -3,7 +3,7 @@ export interface MenuItem {
   name: string;
   description: string;
   price: number;
-  category: string;
+  category: 'COFFEE' | 'PASTRY' | 'MAIN' | 'DESSERT' | 'SALAD';
   image: string;
 }
 
@@ -12,10 +12,21 @@ export interface CartItem extends MenuItem {
 }
 
 export interface Order {
-  id: number;
-  items: CartItem[];
+  id: string;
+  items: OrderItem[];
   status: 'pending' | 'preparing' | 'ready';
   queueNumber: number;
   totalAmount: number;
-  timestamp: string;
+  timestamp: any; // Firebase Timestamp
+  createdAt: any; // Firebase Timestamp
+  updatedAt?: any; // Firebase Timestamp
+}
+
+export interface OrderItem {
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  category: string;
+  image: string;
 }

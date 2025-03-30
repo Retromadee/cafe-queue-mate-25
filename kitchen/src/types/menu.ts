@@ -7,15 +7,22 @@ export interface MenuItem {
   image: string;
 }
 
-export interface CartItem extends MenuItem {
+export interface OrderItem {
+  name: string;
+  description: string;
+  price: number;
   quantity: number;
+  category: string;
+  image?: string;
 }
 
 export interface Order {
-  id: number;
-  items: CartItem[];
+  id: string;
+  items: OrderItem[];
+  totalAmount: number;
   status: 'pending' | 'preparing' | 'ready';
   queueNumber: number;
-  totalAmount: number;
-  timestamp: string;
-}
+  orderDate: string;
+  createdAt: Date;
+  updatedAt: Date;
+} 

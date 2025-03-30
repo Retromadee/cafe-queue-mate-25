@@ -30,6 +30,10 @@ const Index = () => {
     });
   };
 
+  const formatPrice = (price: number) => {
+    return `₺${price.toFixed(2)}`;
+  };
+
   if (isLoading) {
     return <div className="flex justify-center items-center min-h-screen">Loading menu items...</div>;
   }
@@ -42,7 +46,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <header className="bg-primary p-4 text-primary-foreground">
         <div className="container flex justify-between items-center">
-          <h1 className="text-2xl font-bold">School Cafe</h1>
+          <h1 className="text-2xl font-bold">ELIT CAFE</h1>
           <Link to="/cart" className="flex items-center gap-2">
             <ShoppingCart className="h-5 w-5" />
             <span>Cart ({items.length})</span>
@@ -75,7 +79,7 @@ const Index = () => {
                 <h3 className="text-lg font-semibold">{item.name}</h3>
                 <p className="text-sm text-gray-600 mt-1">{item.description}</p>
                 <div className="flex justify-between items-center mt-4">
-                  <span className="text-lg font-bold">${item.price.toFixed(2)}</span>
+                  <span className="text-lg font-bold">{formatPrice(item.price)}</span>
                   <Button onClick={() => handleAddToCart(item)}>
                     Add to Cart
                   </Button>

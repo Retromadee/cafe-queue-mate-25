@@ -12,10 +12,9 @@
     </parent>
     
     <groupId>com.cafe</groupId>
-    <artifactId>cafe-queue-mate</artifactId>
+    <artifactId>elite-cafe</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>cafe-queue-mate</name>
-    <description>School Cafe Queue Management System</description>
+    <name>elite-cafe</name>
     
     <properties>
         <java.version>17</java.version>
@@ -39,11 +38,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
     

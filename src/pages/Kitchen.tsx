@@ -24,7 +24,120 @@ const Kitchen = () => {
       ],
       totalAmount: 11.98,
       timestamp: new Date().toISOString()
-    }
+    },
+    {
+      id: 12,
+      queueNumber: 49,
+      status: 'pending',
+      items: [
+        {
+          id: 12,
+          name: "Pepsi",
+          description: "Soft drink, soda",
+          price: 20.99,
+          category: "DRINKS",
+          image: "/pepsi.jpg"
+        }
+      ],
+      totalAmount: 11.98,
+      timestamp: new Date().toISOString()
+    },
+    {
+      id: 2,
+      queueNumber: 44,
+      status: 'pending',
+      items: [
+        {
+          id: 2,
+          name: "Classic Burger",
+          description: "Juicy beef patty with fresh lettuce and tomatoes",
+          price: 5.99,
+          category: "Main Course",
+          image: "/placeholder.svg",
+          quantity: 2
+        }
+      ],
+      totalAmount: 11.98,
+      timestamp: new Date().toISOString()
+    },
+    {
+      id: 3,
+      queueNumber: 45,
+      status: 'pending',
+      items: [
+        {
+          id: 3,
+          name: "Classic Burger",
+          description: "Juicy beef patty with fresh lettuce and tomatoes",
+          price: 5.99,
+          category: "Main Course",
+          image: "/placeholder.svg",
+          quantity: 2
+        }
+      ],
+      totalAmount: 11.98,
+      timestamp: new Date().toISOString()
+    },
+    {
+      id: 4,
+      queueNumber: 48,
+      status: 'pending',
+      items: [
+        {
+          id: 4,
+          name: "Classic Burger",
+          description: "Juicy beef patty with fresh lettuce and tomatoes",
+          price: 5.99,
+          category: "Main Course",
+          image: "/placeholder.svg",
+          quantity: 2
+        }
+      ],
+      totalAmount: 11.98,
+      timestamp: new Date().toISOString()
+    },
+    {
+      id: 5,
+      queueNumber: 49,
+      status: 'pending',
+      items: [
+        {
+          id: 5,
+          name: "Classic Burger",
+          description: "Juicy beef patty with fresh lettuce and tomatoes",
+          price: 5.99,
+          category: "Main Course",
+          image: "/placeholder.svg",
+          quantity: 2
+        }
+      ],
+      totalAmount: 11.98,
+      timestamp: new Date().toISOString()
+    },
+
+    
+    {
+      id: 10,
+      queueNumber: 49,
+      status: 'pending',
+      items: [
+        {
+          id: 10,
+          name: "Pepsi",
+          description: "Soft drink, soda",
+          price: 20.99,
+          category: "DRINKS",
+          image: "/pepsi.jpg"
+        }
+      ],
+      totalAmount: 11.98,
+      timestamp: new Date().toISOString()
+    },
+
+    
+
+
+    
   ]);
 
   const updateOrderStatus = (orderId: number, status: Order['status']) => {
@@ -33,17 +146,16 @@ const Kitchen = () => {
     ));
   };
 
+  const formatPrice = (price: number) => {
+    return `₺${price.toFixed(2)}`;
+  };
+
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="container max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center">
-            <Link to="/">
-              <Button variant="ghost">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Menu
-              </Button>
-            </Link>
+            
             <h2 className="text-2xl font-bold ml-4">Kitchen Orders</h2>
           </div>
         </div>
@@ -71,13 +183,13 @@ const Kitchen = () => {
                 {order.items.map((item) => (
                   <div key={item.id} className="flex justify-between">
                     <span>{item.quantity}x {item.name}</span>
-                    <span>${(item.price * item.quantity).toFixed(2)}</span>
+                    <span>{formatPrice(item.price)}</span>
                   </div>
                 ))}
               </div>
 
               <div className="flex justify-between items-center pt-4 border-t">
-                <span className="font-bold">Total: ${order.totalAmount.toFixed(2)}</span>
+                <span className="font-bold">Total: {formatPrice(order.totalAmount)}</span>
                 {order.status === 'pending' && (
                   <Button onClick={() => updateOrderStatus(order.id, 'preparing')}>
                     Start Preparing
